@@ -60,5 +60,13 @@ export default {
   width 1700px
   transition background 1s
 
-
+  @media screen and (min-width: 1400px)  
+    position absolute
+    left 50%
+    top 0
+    transform translateX(-55%) // 通过 transform 调整位置，使得中心点对齐
+    z-index -999999
+    height:1300px
+    width 130%
+    transition background 1s    
 </style>
