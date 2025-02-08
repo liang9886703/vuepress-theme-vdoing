@@ -30,7 +30,7 @@
         </header>
 
         <!-- PC端features块 s -->
-        <div class="features" v-if="hasFeatures && !isMQMobile">
+        <div class="features" v-if="hasFeatures">
           <div
             class="feature"
             v-for="(feature, index) in homeData.features"
@@ -61,51 +61,6 @@
         <!-- PC端features块 e -->
       </div>
 
-      <!-- 移动端features块 s -->
-      <!-- isMQMobile放到v-if上线后会报错 -->
-      <div class="slide-banner" v-if="hasFeatures" v-show="isMQMobile">
-        <div class="banner-wrapper">
-          <div class="slide-banner-scroll" ref="slide">
-            <div class="slide-banner-wrapper">
-              <div
-                class="slide-item"
-                v-for="(feature, index) in homeData.features"
-                :key="index"
-              >
-                <router-link v-if="feature.link" :to="feature.link">
-                  <img
-                    class="feature-img"
-                    v-if="feature.imgUrl"
-                    :src="$withBase(feature.imgUrl)"
-                    :alt="feature.title"
-                  />
-                  <h2>{{ feature.title }}</h2>
-                  <p>{{ feature.details }}</p>
-                </router-link>
-                <a v-else href="javascript:;">
-                  <img
-                    class="feature-img"
-                    v-if="feature.imgUrl"
-                    :src="$withBase(feature.imgUrl)"
-                    :alt="feature.title"
-                  />
-                  <h2>{{ feature.title }}</h2>
-                  <p>{{ feature.details }}</p>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="docs-wrapper">
-            <span
-              class="doc"
-              v-for="(item, index) in homeData.features.length"
-              :key="index"
-              :class="{ active: currentPageIndex === index }"
-            ></span>
-          </div>
-        </div>
-      </div>
-      <!-- 移动端features块 e -->
     </div>
     <!-- banner块 e -->
 
@@ -164,6 +119,7 @@
 </template>
 
 <script>
+
 import NavLink from "@theme/components/NavLink";
 import BScroll from "@better-scroll/core"
 import Slide from "@better-scroll/slide"
@@ -215,21 +171,26 @@ export default {
     },
     bannerBgStyle() {
       let bannerBg = this.homeData.bannerBg
+      //return 'background-image:url("http://gips3.baidu.com/it/u=100751361,1567855012&fm=3028&app=3028&f=JPEG&fmt=auto?w=960&h=1280")'
       if (!bannerBg || bannerBg === 'auto') { // 默认
+        console.log('bannerBg1',bannerBg)
         if (this.$themeConfig.bodyBgImg) { // 当有bodyBgImg时，不显示背景
           return ''
         } else { // 网格纹背景
           return 'background: rgb(40,40,45) url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABOSURBVFhH7c6xCQAgDAVRR9A6E4hLu4uLiWJ7tSnuQcIvr2TRYsw3/zOGGEOMIcYQY4gxxBhiDDGGGEOMIcYQY4gxxBhiDLkx52W4Gn1tuslCtHJvL54AAAAASUVORK5CYII=)'
         }
       } else if (bannerBg === 'none') { // 无背景
+        console.log('bannerBg2')
         if (this.$themeConfig.bodyBgImg) {
           return ''
         } else {
           return 'background: var(--mainBg);color: var(--textColor)'
         }
-      } else if (bannerBg.indexOf('background:') > -1) { // 自定义背景样式
+      } else if (bannerBg.indexOf('background:') > -1 || bannerBg.indexOf('background-image:') > -1) { // 自定义背景样式
+        console.log('bannerBg3')
         return bannerBg
       } else if (bannerBg.indexOf('.') > -1) { // 大图
+        console.log('bannerBg4')
         return `background: url(${this.$withBase(bannerBg)}) center center / cover no-repeat`
       }
 

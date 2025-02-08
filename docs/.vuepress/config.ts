@@ -12,14 +12,14 @@ const DOMAIN_NAME = 'xugaoyi.com' // 域名 (不带https)
 const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
 
 export default defineConfig4CustomTheme<VdoingThemeConfig>({
-  theme: 'vdoing', // 使用npm主题包
-  // theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
+  //theme: 'vdoing', // 使用npm主题包
+  theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
 
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: "Evan's blog",
-      description: 'web前端技术博客,专注web前端学习与总结。JavaScript,js,ES6,TypeScript,vue,React,python,css3,html5,Node,git,github等技术文章。',
+      title: "松垮垮's blog",
+      description: '后端开发等技术文章。',
     }
   },
   // base: '/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
@@ -30,7 +30,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     nav: [
       { text: '首页', link: '/' },
       {
-        text: '前端',
+        text: '后端',
         link: '/web/', //目录页链接，此处link是vdoing主题新增的配置项，有二级导航时，可以点击一级导航跳到目录页
         items: [
           // 说明：以下所有link的值只是在相应md文件头部定义的永久链接（不是什么特殊编码）。另外，注意结尾是有斜杠的
@@ -136,12 +136,11 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // pageStyle: 'line', // 页面风格，可选值：'card'卡片 | 'line' 线（未设置bodyBgImg时才生效）， 默认'card'。 说明：card时背景显示灰色衬托出卡片样式，line时背景显示纯色，并且部分模块带线条边框
 
-    // bodyBgImg: [
-    //   'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175828.jpeg',
-    //   'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175845.jpeg',
-    //   'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175846.jpeg'
-    // ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
-    // bodyBgImgOpacity: 0.5, // body背景图透明度，选值 0.1~1.0, 默认0.5
+    bodyBgImg: '/img/bg.svg',//[
+      //'/img/bg.svg'
+      //'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175828.jpeg'
+    //], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
+    bodyBgImgOpacity: 0.9, // body背景图透明度，选值 0.1~1.0, 默认0.5
     // bodyBgImgInterval: 15, // body多张背景图时的切换间隔, 默认15，单位s
     // titleBadge: false, // 文章标题前的图标是否显示，默认true
     // titleBadgeIcons: [ // 文章标题前图标的地址，默认主题内置图标
@@ -173,8 +172,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 博主信息 (显示在首页侧边栏)
     blogger: {
       avatar: 'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200103123203.jpg',
-      name: 'Evan Xu',
-      slogan: '前端界的小学生',
+      name: '松垮垮',
+      slogan: 'c++后端开发工程师',
     },
 
     // 社交图标 (显示于博主信息栏和页脚栏。内置图标：https://doc.xugaoyi.com/pages/a20ce8/#social)
@@ -209,8 +208,8 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     // 扩展自动生成frontmatter。（当md文件的frontmatter不存在相应的字段时将自动添加。不会覆盖已有的数据。）
     extendFrontmatter: {
       author: {
-        name: 'xugaoyi',
-        link: 'https://github.com/xugaoyi'
+        name: 'songkuakua',
+        link: 'https://github.com/liang9886703'
       }
     },
 

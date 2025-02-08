@@ -1,0 +1,149 @@
+'''
+Author: liang9886703 liang9886703@outlook,com
+Date: 2025-02-07 15:54:36
+LastEditors: liang9886703 liang9886703@outlook,com
+LastEditTime: 2025-02-07 20:34:31
+FilePath: \vuepress-theme-vdoing\build_directories.py
+Description: 
+
+Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
+'''
+from pathlib import Path
+import shutil
+from datetime import datetime
+# import json
+import copy
+import re
+
+orderPath = Path.cwd() / 'docs'
+
+rootDirectory = '00.目录页'
+tagDirectoryContent = {}
+tagDirectoryContent[2] = {'pageComponent':{'data':{'description': r'hahah'}}} # 示例
+
+# todo 更换图片 'imgUrl': '/img/web.png', 
+tagDirectory = {'pageComponent':{
+                    'name': 'Catalogue',
+                    'data':{
+                        'path': '01.前端',
+                        'imgUrl': r'/img/web.png', 
+                        'description': r'JavaScript、ES6、Vue框架等前端技术'
+                        }
+                    },
+                'title': '前端',
+                'date': '',
+                'permalink': '',
+                'sidebar': 'false',
+                'article': 'false',
+                'comment': 'false',
+                'editLink': 'false',
+                'author':{
+                    'name': 'songkuakua',
+                    'link': r'https://github.com/liang9886703'
+                    }
+                }
+
+tagMd = {'title': '33个非常实用的JavaScript一行代码',
+            'date': '',
+            'permalink': r'/pages/a61298/',
+            'categories':'\n\t- 服务端开发',
+            'tags':'\n\t- 服务端开发',
+            'author': {
+                    'name': 'songkuakua',
+                    'link': r'https://github.com/liang9886703'
+                    }
+            }
+
+excludeFileRoot = ['_posts','.vuepress','@pages','index.md', rootDirectory]
+
+matchMdDir = r'^([0-9]+)(?=.[\S]+$)'
+
+def create_str_from_item(item,name):
+    '''通过列表生成格式化的md描述文本'''
+    print(f"build_directories: {name}")
+    res = '---\n'
+    def func(item, level):
+        res = ''
+        for k,v in item.items():
+            res += '\t' * level
+            res += f'{k}: '
+            if isinstance(v, str):
+                res += f'{v}\n'
+            else:
+                res += r'{'+'\n'
+                res += func(v, level+1)
+                res += '\t' * level + r'}'+'\n'
+        return res
+
+    res += func(item, 0)
+    res += '---\n'
+    return res
+
+def build_directories(path, name)->str:
+    # 当第一次函数时，初始化目录文件夹
+    if not hasattr(build_directories, 'count'):
+        # 如果没有，则初始化 count 属性为 0
+        build_directories.count = 0
+    if not hasattr(build_directories, 'root'):
+        print('init root')
+        # 如果没有，则初始化 count 属性为 0
+        build_directories.root = path / rootDirectory
+
+        if build_directories.root.exists():
+            shutil.rmtree(build_directories.root)
+        
+        try:
+            build_directories.root.mkdir()
+        except Exception as e:
+            print(f"Failed to create {build_directories.root} : {e}")
+            return None
+
+    # 目录前缀数字
+    build_directories.count += 1
+    if build_directories.count > 9:
+        file_name = str(build_directories.count) + '.' + name
+    else:
+        file_name = '0' + str(build_directories.count) + '.' + name
+
+    # 目录内容字符串生成
+    tagDir = copy.deepcopy(tagDirectory)
+    tagDir['pageComponent']['data']['path'] = file_name
+    tagDir['title'] = name
+    tagDir['date'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    if tagDirectoryContent.get(build_directories.count):
+        for k,v in tagDirectoryContent[build_directories.count].items():
+            if type(v) == str:
+                tagDir[k] = v
+            else:
+                for k1,v1 in v.items():
+                    if type(v1) == str:
+                        tagDir[k][k1] = v1
+                    else:
+                        for k2,v2 in v1.items():
+                            tagDir[k][k1][k2] = v2
+    # string = json.dumps(tagDir, ensure_ascii=False, indent=4)
+    string = create_str_from_item(tagDir,name)
+    file_path = build_directories.root / (file_name+'.md')
+
+    try:
+        file_path.touch()
+        f = open(file_path, 'w', encoding='utf-8')
+        f.write(string)
+        f.close()
+    except Exception as e:
+        print(f"Failed to write {file_path}: {e}")
+        return None
+
+    return file_name
+
+def orderDir(p):
+    """对文件夹进行编号和排序"""
+    path = Path.absolute(p)
+    for item in path.iterdir():
+        if item.is_dir() and not item.name in excludeFileRoot:
+            new_name = re.sub(matchMdDir, '', item.name)
+            file_name = path / item.name
+            file_name.rename(new_name)
+            build_directories(path, item.name)
+
+orderDir(orderPath)
