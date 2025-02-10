@@ -1,5 +1,4 @@
 import { DefaultThemeConfig } from '@vuepress/types'
-
 type NoSidebar4DefaultThemeConfig = Omit<DefaultThemeConfig, 'sidebar'> // 忽略sidebar属性
 
 /**

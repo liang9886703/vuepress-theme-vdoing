@@ -53,7 +53,7 @@ export default {
 .body-bg 
   position absolute
   left 50%
-  top 0
+  top -10%
   transform translateX(-55%) // 通过 transform 调整位置，使得中心点对齐
   z-index -999999
   height:1300px
@@ -63,7 +63,7 @@ export default {
   @media screen and (min-width: 1400px)  
     position absolute
     left 50%
-    top 0
+    top -10%
     transform translateX(-55%) // 通过 transform 调整位置，使得中心点对齐
     z-index -999999
     height:1300px
