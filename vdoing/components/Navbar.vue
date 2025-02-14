@@ -88,26 +88,30 @@ function css (el, property) {
 </script>
 
 <style lang="stylus">
-$navbar-vertical-padding = 0.7rem
+$navbar-vertical-padding = 0.4rem
 $navbar-horizontal-padding = 1.5rem
 .navbar
   padding $navbar-vertical-padding $navbar-horizontal-padding
   line-height $navbarHeight - 1.4rem
   transition transform 0.3s
+  
   a, span, img
     display inline-block
   .logo
-    height $navbarHeight - 1.4rem
+    height $navbarHeight - 1rem
     min-width $navbarHeight - 1.4rem
-    margin-right 0.8rem
+    margin-right 0.4rem
     vertical-align top
   .site-name
-    font-size 1.3rem
+    top 0.2rem
+    font-size 1.1rem
     font-weight 600
-    color var(--textColor)
+    font-family: 'home_chinese'
+    color lighten($accentColor, 10%)
     position relative
   .links
-    padding-left 1.5rem
+    font-family: 'home_chinese'
+    padding-left 2.5rem
     box-sizing border-box
     white-space nowrap
     font-size 0.9rem

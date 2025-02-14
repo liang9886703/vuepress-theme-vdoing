@@ -1,3 +1,13 @@
+<!--
+ * @Author: liang9886703 liang9886703@outlook,com
+ * @Date: 2025-01-27 17:52:06
+ * @LastEditors: liang9886703 liang9886703@outlook,com
+ * @LastEditTime: 2025-02-01 23:26:59
+ * @FilePath: \vuepress-theme-vdoing\vdoing\components\Sidebar.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
+-->
 <template>
   <aside class="sidebar">
     <div class="blogger" v-if="blogger">
@@ -16,6 +26,8 @@
           ></a>
         </div>
         <span v-else>{{ blogger.slogan }}</span>
+        <span>{{ blogger.type }}</span>
+        <span>{{ blogger.email }}</span>
       </div>
     </div>
 
@@ -77,7 +89,7 @@ export default {
       margin-top 0.75rem
   .blogger
     display none
-    border-bottom 1px solid var(--borderColor)
+    border-bottom 1px solid var(--buttonsColor)
     img
       width 60px
       height 60px

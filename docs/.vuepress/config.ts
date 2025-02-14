@@ -8,18 +8,20 @@ import dayjs from 'dayjs'
 import baiduCode from './config/baiduCode' // 百度统计hm码
 import htmlModules from './config/htmlModules' // 自定义插入的html块
 
-const DOMAIN_NAME = 'xugaoyi.com' // 域名 (不带https)
-const WEB_SITE = `https://${DOMAIN_NAME}` // 网址
+const DOMAIN_NAME = 'songkuakua.com' // 域名 (不带https)
+const WEB_SITE = `http://${DOMAIN_NAME}` // 网址
 
-export default defineConfig4CustomTheme<VdoingThemeConfig>({
-  theme: 'vdoing', // 使用npm主题包
-  // theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
+
+export default defineConfig4CustomTheme<VdoingThemeConfig>(
+{
+  //theme: 'vdoing', // 使用npm主题包
+  theme: resolve(__dirname, '../../vdoing'), // 使用本地主题包
 
   locales: {
     '/': {
       lang: 'zh-CN',
-      title: "Evan's blog",
-      description: 'web前端技术博客,专注web前端学习与总结。JavaScript,js,ES6,TypeScript,vue,React,python,css3,html5,Node,git,github等技术文章。',
+      title: "松垮垮",
+      description: '后端开发等技术文章。',
     }
   },
   // base: '/', // 默认'/'。如果你想将你的网站部署到如 https://foo.github.io/bar/，那么 base 应该被设置成 "/bar/",（否则页面将失去样式等文件）
@@ -27,99 +29,217 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
   // 主题配置
   themeConfig: {
     // 导航配置
-    nav: [
-      { text: '首页', link: '/' },
+    // ! build_directories.py会修改nav的内容，在这里注释会被删除 
+    nav: 
+    [
+      {
+        text: '首页',
+        link: '/'
+      },
+      {
+        text: 'quicker',
+        link: '/01/',
+        items: [
+            {
+              text: 'vim.md',
+              link: '/01/01/'
+            }
+        ]
+      },
+      {
+        text: '分布式',
+        link: '/02/',
+        items: [
+            {
+              text: '一致性算法.md',
+              link: '/02/01/'
+            },
+            {
+              text: '分布式ID生成.md',
+              link: '/02/02/'
+            },
+            {
+              text: '分布式架构.md',
+              link: '/02/03/'
+            }
+        ]
+      },
       {
         text: '前端',
-        link: '/web/', //目录页链接，此处link是vdoing主题新增的配置项，有二级导航时，可以点击一级导航跳到目录页
+        link: '/03/',
         items: [
-          // 说明：以下所有link的值只是在相应md文件头部定义的永久链接（不是什么特殊编码）。另外，注意结尾是有斜杠的
-          {
-            text: '前端文章',
-            items: [
-              { text: 'JavaScript', link: '/pages/8143cc480faf9a11/' },
-            ],
-          },
-          {
-            text: '学习笔记',
-            items: [
-              { text: '《JavaScript教程》', link: '/note/javascript/' },
-              { text: '《JavaScript高级程序设计》', link: '/note/js/' },
-              { text: '《ES6 教程》', link: '/note/es6/' },
-              { text: '《Vue》', link: '/note/vue/' },
-              { text: '《React》', link: '/note/react/' },
-              {
-                text: '《TypeScript 从零实现 axios》',
-                link: '/note/typescript-axios/',
-              },
-              {
-                text: '《Git》',
-                link: '/note/git/',
-              },
-              {
-                text: 'TypeScript',
-                link: '/pages/51afd6/',
-              },
-              {
-                text: 'JS设计模式总结',
-                link: '/pages/4643cd/',
-              },
-            ],
-          },
-        ],
+            {
+              text: 'css.md',
+              link: '/03/01/'
+            },
+            {
+              text: 'html.md',
+              link: '/03/02/'
+            },
+            {
+              text: 'JavaScript.md',
+              link: '/03/03/'
+            },
+            {
+              text: 'vue.md',
+              link: '/03/04/'
+            }
+        ]
       },
       {
-        text: '页面',
-        link: '/ui/',
+        text: '操作系统',
+        link: '/04/',
         items: [
-          { text: 'HTML', link: '/pages/8309a5b876fc95e3/' },
-          { text: 'CSS', link: '/pages/0a83b083bdf257cb/' },
-        ],
+            {
+              text: '内存管理.md',
+              link: '/04/01/'
+            },
+            {
+              text: '文件系统.md',
+              link: '/04/02/'
+            },
+            {
+              text: '硬件结构.md',
+              link: '/04/03/'
+            },
+            {
+              text: '网络系统.md',
+              link: '/04/04/'
+            },
+            {
+              text: '设备管理.md',
+              link: '/04/05/'
+            },
+            {
+              text: '调试技术.md',
+              link: '/04/06/'
+            },
+            {
+              text: '进程管理.md',
+              link: '/04/07/'
+            }
+        ]
       },
       {
-        text: '技术',
-        link: '/technology/',
+        text: '数据库',
+        link: '/05/',
         items: [
-          { text: '技术文档', link: '/pages/9a7ee40fc232253e/' },
-          { text: 'GitHub技巧', link: '/pages/4c778760be26d8b3/' },
-          { text: 'Nodejs', link: '/pages/117708e0af7f0bd9/' },
-          { text: '博客搭建', link: '/pages/41f87d890d0a02af/' },
-        ],
+            {
+              text: 'redis原理.md',
+              link: '/05/01/'
+            },
+            {
+              text: '数据库.md',
+              link: '/05/02/'
+            }
+        ]
       },
       {
-        text: '更多',
-        link: '/more/',
+        text: '服务器开发',
+        link: '/06/',
         items: [
-          { text: '学习', link: '/pages/f2a556/' },
-          { text: '面试', link: '/pages/aea6571b7a8bae86/' },
-          { text: '心情杂货', link: '/pages/2d615df9a36a98ed/' },
-          { text: '实用技巧', link: '/pages/baaa02/' },
-          { text: '友情链接', link: '/friends/' },
-        ],
+            {
+              text: 'nginx.md',
+              link: '/06/01/'
+            },
+            {
+              text: 'nginx环境+编译+调试.md',
+              link: '/06/02/'
+            },
+            {
+              text: '高性能linux服务器.md',
+              link: '/06/03/'
+            }
+        ]
       },
-      { text: '关于', link: '/about/' },
       {
-        text: '收藏',
-        link: '/pages/beb6c0bd8a66cea6/',
-        // items: [
-        //   { text: '网站', link: '/pages/beb6c0bd8a66cea6/' },
-        //   { text: '资源', link: '/pages/eee83a9211a70f9d/' },
-        //   { text: 'Vue资源', link: '/pages/12df8ace52d493f6/' },
-        // ],
+        text: '网络编程',
+        link: '/07/',
+        items: [
+            {
+              text: 'IP',
+              link: '/07/01/01/'
+            },
+            {
+              text: '网络工具.md',
+              link: '/07/02/'
+            },
+            {
+              text: '网络编程.md',
+              link: '/07/03/'
+            }
+        ]
+      },
+      {
+        text: '面试',
+        link: '/08/',
+        items: [
+            {
+              text: 'GPU并行编程.md',
+              link: '/08/01/'
+            },
+            {
+              text: 'mysql.md',
+              link: '/08/02/'
+            },
+            {
+              text: 'nginx.md',
+              link: '/08/03/'
+            },
+            {
+              text: 'redis.md',
+              link: '/08/04/'
+            },
+            {
+              text: '网络.md',
+              link: '/08/05/'
+            },
+            {
+              text: '计算机视觉.md',
+              link: '/08/06/'
+            },
+            {
+              text: '进程管理.md',
+              link: '/08/07/'
+            }
+        ]
+      },
+      {
+        text: '项目bug',
+        link: '/09/',
+        items: [
+            {
+              text: 'linux调试.md',
+              link: '/09/01/'
+            },
+            {
+              text: '【Python】：re.error bad escape i at position 4.md',
+              link: '/09/02/'
+            }
+        ]
       },
       {
         text: '索引',
         link: '/archives/',
         items: [
-          { text: '分类', link: '/categories/' },
-          { text: '标签', link: '/tags/' },
-          { text: '归档', link: '/archives/' },
-        ],
-      },
+            {
+              text: '分类',
+              link: '/categories/'
+            },
+            {
+              text: '标签',
+              link: '/tags/'
+            },
+            {
+              text: '归档',
+              link: '/archives/'
+            }
+        ]
+      }
     ],
     sidebarDepth: 2, // 侧边栏显示深度，默认1，最大2（显示到h3标题）
     logo: '/img/logo.png', // 导航栏logo
-    repo: 'xugaoyi/vuepress-theme-vdoing', // 导航栏右侧生成Github链接
+    repo: 'liang9886703', // 导航栏右侧生成Github链接
     searchMaxSuggestions: 10, // 搜索结果显示最大数
     lastUpdated: '上次更新', // 开启更新时间，并配置前缀文字   string | boolean (取值为git提交时间)
     docsDir: 'docs', // 编辑的文件夹
@@ -136,12 +256,11 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // pageStyle: 'line', // 页面风格，可选值：'card'卡片 | 'line' 线（未设置bodyBgImg时才生效）， 默认'card'。 说明：card时背景显示灰色衬托出卡片样式，line时背景显示纯色，并且部分模块带线条边框
 
-    // bodyBgImg: [
-    //   'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175828.jpeg',
-    //   'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175845.jpeg',
-    //   'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175846.jpeg'
-    // ], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
-    // bodyBgImgOpacity: 0.5, // body背景图透明度，选值 0.1~1.0, 默认0.5
+    bodyBgImg: '/img/bg.svg',//[
+      //'/img/bg.svg'
+      //'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200507175828.jpeg'
+    //], // body背景大图，默认无。 单张图片 String | 多张图片 Array, 多张图片时隔bodyBgImgInterval切换一张。
+    bodyBgImgOpacity: 0.9, // body背景图透明度，选值 0.1~1.0, 默认0.5
     // bodyBgImgInterval: 15, // body多张背景图时的切换间隔, 默认15，单位s
     // titleBadge: false, // 文章标题前的图标是否显示，默认true
     // titleBadgeIcons: [ // 文章标题前图标的地址，默认主题内置图标
@@ -166,15 +285,15 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 文章默认的作者信息，(可在md文件中单独配置此信息) string | {name: string, link?: string}
     author: {
-      name: 'xugaoyi', // 必需
-      link: 'https://github.com/xugaoyi', // 可选的
+      name: 'songkuakua', // 必需
+      link: 'https://github.com/liang9886703', // 可选的
     },
 
     // 博主信息 (显示在首页侧边栏)
     blogger: {
       avatar: 'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200103123203.jpg',
-      name: 'Evan Xu',
-      slogan: '前端界的小学生',
+      name: '松垮垮',
+      slogan: 'c++后端开发工程师',
     },
 
     // 社交图标 (显示于博主信息栏和页脚栏。内置图标：https://doc.xugaoyi.com/pages/a20ce8/#social)
@@ -184,12 +303,12 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
         {
           iconClass: 'icon-youjian',
           title: '发邮件',
-          link: 'mailto:894072666@qq.com',
+          link: 'mailto:liang9886703@outlook.com',
         },
         {
           iconClass: 'icon-github',
           title: 'GitHub',
-          link: 'https://github.com/xugaoyi',
+          link: 'https://github.com/liang9886703',
         },
         {
           iconClass: 'icon-erji',
@@ -201,16 +320,16 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
 
     // 页脚信息
     footer: {
-      createYear: 2019, // 博客创建年份
+      createYear: 2025, // 博客创建年份
       copyrightInfo:
-        'Evan Xu | <a href="https://github.com/xugaoyi/vuepress-theme-vdoing/blob/master/LICENSE" target="_blank">MIT License</a> | <a href="http://beian.miit.gov.cn/" target="_blank">桂ICP备2024034950号</a> | <img src="/img/beian.png" style="width: 15px; margin-bottom: -3px;" /> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=45142202000030" rel="noreferrer" target="_blank">桂公网安备45142202000030</a>', // 博客版权信息、备案信息等，支持a标签或换行标签</br>
+        '松垮垮 | <a href="https://github.com/liang9886703/vuepress-theme-vdoing/blob/master/LICENSE" target="_blank">MIT License</a> | <a href="http://beian.miit.gov.cn/" target="_blank">蜀ICP备2025120453号</a> | <img src="/img/beian.png" style="width: 15px; margin-bottom: -3px;" /> <a href="https://beian.mps.gov.cn/#/query/webSearch?code=51011202000997" rel="noreferrer" target="_blank">川公网安备51011202000997号</a>', // 博客版权信息、备案信息等，支持a标签或换行标签</br>
     },
 
     // 扩展自动生成frontmatter。（当md文件的frontmatter不存在相应的字段时将自动添加。不会覆盖已有的数据。）
     extendFrontmatter: {
       author: {
-        name: 'xugaoyi',
-        link: 'https://github.com/xugaoyi'
+        name: 'songkuakua',
+        link: 'https://github.com/liang9886703'
       }
     },
 
@@ -225,7 +344,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
       'meta',
       {
         name: 'keywords',
-        content: '前端博客,个人技术博客,前端,前端开发,前端框架,web前端,前端面试题,技术文档,学习,面试,JavaScript,js,ES6,TypeScript,vue,python,css3,html5,Node,git,github,markdown',
+        content: '后端博客,个人技术博客,后端,后端开发,后端框架,后端面试题,技术文档,学习,面试,c++,git,github',
       },
     ],
     ['meta', { name: 'baidu-site-verification', content: '7F55weZDDc' }], // 百度统计的站长验证（你可以去掉）
@@ -364,4 +483,5 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>({
     '.vuepress/config.ts',
     '.vuepress/config/htmlModules.ts',
   ]
-})
+}
+)//build_directories.py以最后一行标识json的结尾，不能添加无意义的空行

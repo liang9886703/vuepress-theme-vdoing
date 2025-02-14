@@ -51,6 +51,7 @@ export default {
   > span
     line-height 1.5rem
   .icons
+    color var(--buttonsColor)
     margin-bottom 12px
     .iconfont
       padding 0 10px

@@ -5,6 +5,7 @@
     @touchstart="onTouchStart"
     @touchend="onTouchEnd"
   >
+    <!---顶部导航-->
     <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
 
     <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
@@ -340,7 +341,21 @@ export default {
 </script>
 
 <style lang="stylus">
+@font-face
+  font-family: 'home_chinese'
+  src: url('F:\cpp\vuepress-theme-vdoing\docs\.vuepress\public\chu\fonts\together.ttf') format('truetype')
+  font-weight: normal
+  font-style: normal
+@font-face
+  font-family: 'home_english'
+  src: url('F:\cpp\vuepress-theme-vdoing\docs\.vuepress\public\chu\fonts\FuturaLT-CondensedLightObl.otf') format('opentype')
+  font-weight: normal
+  font-style: normal
+body {
+  cursor: url('F:\cpp\vuepress-theme-vdoing\docs\.vuepress\public\chu\alternate.png'),auto; /* 修改鼠标样式，如手型 */
+}
 .custom-html-window
+
   position fixed
   bottom 0
   display flex

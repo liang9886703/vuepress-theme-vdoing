@@ -80,7 +80,7 @@ export default {
     max-height 80vh
     position relative
     overflow hidden
-    background var(--mainBg)
+    background var(--rightMenuColor)
     padding 4px 3px 4px 0
     &::-webkit-scrollbar
       width 3px
@@ -94,7 +94,7 @@ export default {
       padding-right 0
     .right-menu-item
       padding 4px 15px
-      // border-left 1px solid var(--borderColor)
+      //border-left 1px solid var(--buttonsColor)
       overflow hidden
       white-space nowrap
       text-overflow ellipsis
@@ -117,10 +117,10 @@ export default {
           left 0
           width 3px
           height 14px
-          background $accentColor
+          background var(--buttonsColor)
           border-radius 0 4px 4px 0
         a
-          color $accentColor
+          color var(--buttonsColor)
           opacity 1
       a
         color var(--textColor)

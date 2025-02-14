@@ -1,0 +1,25 @@
+<img loading="lazy" src="./assets/img/top/chara/chara3_img.png" alt="" data-cubox-image-id="16f9067af633444258b818cff23dd18c" data-cubox-image-index="72" data-cubox-image-load="false">
+蝶野雏 站立html
+
+<div class="charaInfo">
+									<div class="chara_name_en"><img loading="lazy" src="assets/img/top/chara/chara3_name_en.png" alt="Hina Chono" class="pc" data-cubox-image-id="46a51c4b55954def6ee08c31fec51091" data-cubox-image-index="73" data-cubox-image-load="false"><img loading="lazy" src="assets/img/top/chara/chara3_name_en_sp.png" alt="Hina Chono" class="sp" data-cubox-image-id="cdd32ddb6e7ff2d04557e5ee6790dc27" data-cubox-image-index="74" data-cubox-image-load="false"></div>
+									<div class="chara_name c3"><img loading="lazy" src="./assets/img/top/chara/chara3_name.png" alt="蝶野 雛 CV:鬼頭明里" data-cubox-image-id="38ff3e4d79c2a307dace1521270ea507" data-cubox-image-index="75" data-cubox-image-load="false"></div>
+									<div class="chara_text_faceWrap">
+										<div class="chara_text">
+										<p>栄明高校に通う高校1年生。<br>新体操部の期待の星で、中等部時代は全国中学校体育大会4位の実績の持ち主。大喜とは中等部時代から同じクラスの腐れ縁兼親友で、気の置けない仲。</p>
+										</div>
+										<div class="chara_face"><img loading="lazy" src="./assets/img/top/chara/chara3_face.png" alt="" data-cubox-image-id="a79fecc234c5e4e0b2b684691e252f07" data-cubox-image-index="76" data-cubox-image-load="false"></div>
+									</div>
+								</div>
+
+
+背景图片：
+@media screen and (min-width: 768px) {
+    #character {
+        background-color: #FFF;
+        background-image: url(../img/top/chara/chara_bg.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: top center;
+    }
+}

@@ -75,7 +75,7 @@ export default {
           KEY: 'dark'
         },
         {
-          name: '阅读模式',
+          name: '纯净模式',
           icon: 'icon-yuedu',
           KEY: 'read'
         }
@@ -219,7 +219,7 @@ export default {
     text-align center
     cursor pointer
     transition all 0.5s
-    background var(--blurBg)
+    background var(--buttonsColor)
     &.hover
       background $accentColor
       box-shadow 0 0 15px $accentColor

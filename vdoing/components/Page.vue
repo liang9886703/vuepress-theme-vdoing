@@ -215,4 +215,9 @@ export default {
   @media (min-width 1280px)
     .sidebar, .sidebar-button
       display none
+
+::selection {
+  background: var(--selection-bg, #f582ae); /* 选中文字的背景色 */
+  color: var(--selection-color, #001858); /* 选中文字的字体颜色 */
+}
 </style>
