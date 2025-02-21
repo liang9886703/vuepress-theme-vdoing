@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+
+    <style>
+        @charset "utf-8";html {
+            --theme: #50bfff;
+            --main: #606266;
+            --title: #444;
+            --background: rgba(41, 212, 218, 0.94);
+            --background-hover: #fff;
+            --style-a: #fff;
+            --light-a: #ffffff;
+            --light-b: #ebeef5;
+            --light-c: #dcdcdc;
+            --light-d: #c0c4cc;
+            --dark-a: #4a4a4a;
+            --dark-b: #909399;
+            --dark-c: #333;
+            --dark-d: #9a9a9a;
+            --dark-e: #7a7a7a;
+            --color-a: #409eff;
+            --bg-a: rgba(242, 246, 252, 0.8);
+            --bg-b: #f2f6fc;
+            --bg-c: #f5f5f5;
+            --bg-d: rgba(255, 255, 255, 0.8);
+            --bg-e: var(--theme);
+            --bg-f: #f7f7f7;
+            --bg-g: #e8f3ff;
+            --bg-h: rgba(237, 244, 253, 0.75);
+            --bg-i: #50bfff;
+            --bg-j: rgba(243, 244, 245, 0.25);
+            --bg-k: rgba(250, 250, 250, 0.8);
+            --bg-l: rgba(243, 243, 243, 0.8);
+            --radius-wrap: 8px;
+            --radius-inner: 4px;
+            --radius-img: 5px;
+            --box-shadow: 0 0px 10px -5px #949494
+        }
+        canvas,svg {
+            vertical-align: middle
+        }
+        @-webkit-keyframes move-forever {
+            0% {
+                -webkit-transform: translate3d(-90px,0,0);
+                transform: translate3d(-90px,0,0)
+            }
+        
+            to {
+                -webkit-transform: translate3d(85px,0,0);
+                transform: translate3d(85px,0,0)
+            }
+        }
+        .banner {
+            width: 100%;
+            height: 54vh;
+            position: relative;
+            margin-bottom: -4rem;
+            background-position: center;
+            background-size: cover;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center
+        }
+
+        .banner .banner-waves {
+            width: 100%;
+            height: 4rem;
+            left: 0;
+            bottom: 0;
+            fill: var(--background)
+        }
+        
+        .banner .banner-waves .parallax>use {
+            -webkit-animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+            animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite
+        }
+        
+        .banner .banner-waves .parallax>use:first-child {
+            -webkit-animation-delay: -2s;
+            animation-delay: -2s;
+            -webkit-animation-duration: 7s;
+            animation-duration: 7s;
+            opacity: .9
+        }
+        
+        .banner .banner-waves .parallax>use:nth-child(2) {
+            -webkit-animation-delay: -3s;
+            animation-delay: -3s;
+            -webkit-animation-duration: 10s;
+            animation-duration: 10s;
+            opacity: .8
+        }
+        
+        .banner .banner-waves .parallax>use:nth-child(3) {
+            -webkit-animation-delay: -4s;
+            animation-delay: -4s;
+            -webkit-animation-duration: 13s;
+            animation-duration: 13s;
+            opacity: .9
+        }
+        
+        .banner .banner-waves .parallax>use:nth-child(4) {
+            -webkit-animation-delay: -5s;
+            animation-delay: -5s;
+            -webkit-animation-duration: 20s;
+            animation-duration: 20s
+        }
+        
+        
+
+
+
+
+
+
+
+        /*整体css盒子样式*/
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        /*顶部栏整体样式*/
+        .topmenu {
+            position: fixed;
+            top: 0;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            display: inline-block;
+            width: 100%;
+        }
+
+        /*顶部栏内容样式*/
+        .topmenu li {
+            float: left;
+        }
+
+        .topmenu li a {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .topmenu li a:hover {
+            background-color: #222;
+        }
+
+        .topmenu li a.active {
+            color: white;
+            background-color: #4CAF50;
+        }
+
+        /*设置主体内容为一个整体，同时不影响后面元素的格式*/
+        .column {
+            float: left;
+            padding: 15px;
+        }
+
+        .clearfix::after {
+            /*在每个clearfix对象之后追加的内容*/
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /*设置主体内容和侧边栏的占比*/
+        .sidemenu {
+            width: 25%;
+            /*侧边栏占一行的25%*/
+        }
+
+        .content {
+            width: 75%;
+            /*内容占一行的75%*/
+        }
+
+        .sidemenu ul {
+            /*侧边栏的整体样式*/
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidemenu li a {
+            /*侧边栏的单个单元格*/
+            margin-bottom: 4px;
+            display: block;
+            padding: 8px;
+            background-color: #eee;
+            text-decoration: none;
+            color: #666;
+        }
+
+        .sidemenu li a:hover {
+            /*侧边栏鼠标悬停样式*/
+            background-color: #555;
+            color: white;
+        }
+
+        .sidemenu li a.active {
+            /*侧边栏选中样式*/
+            background-color: #008CBA;
+            color: white;
+        }
+
+        /*主体内容中标题的样式*/
+        .header {
+            background-color: #2196F3;
+            color: white;
+            text-align: center;
+        }
+
+        /*脚注内容中的样式*/
+        .footer {
+            background-color: #444;
+            color: white;
+            padding: 15px;
+        }
+
+        .footer ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .footer li {
+            float: left;
+        }
+
+        .footer li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 16px;
+            text-decoration: none;
+        }
+
+        .timeraa1 {
+            font-size: 50%;
+            margin: 0;
+            padding-top: 10px;
+        }
+
+        .timeraa {
+            font-size: 350%;
+            margin: 0;
+            padding-bottom: 20px;
+        }
+
+        .texttt {
+            height: 100%;
+            width: 100%;
+        }
+
+        /*通过样式表来实现下拉菜单是没有必要的，用JavaScript实现更合理*/
+    </style>
+</head>
+
+<body>
+    <!--hahahhaha--->
+    <ul class="topmenu">
+        <li><a href="#home" class="active">主页</a></li>
+        <li><a href="#news">新闻</a></li>
+        <li><a href="#contact">联系我们</a></li>
+        <li><a href="#contact">更多信息</a></li>
+        <li style="float:right"><a href="#about">关于我们</a></li>
+    </ul>
+    <br>
+    <br>
+    <div class="clearfix">
+        <div class="column sidemenu">
+            <br>
+            <ul>
+                <li><a href="#flight">The Flight</a></li>
+                <li><a href="#city" class="active">The City</a></li>
+                <li><a href="#island">The Island</a></li>
+                <li><a href="#food">The Food</a></li>
+                <li><a href="#people">The people</a></li>
+                <li><a href="#history">The history</a></li>
+                <li><a href="#oceans">The oceans</a></li>
+                <li><a href="#more">The more</a></li>
+                <li><a href="#day">The day</a></li>
+                <li><a href="#month">The month</a></li>
+                <li><a href="#hour">The hour</a></li>
+                <li><a href="#minth">The minth</a></li>
+                <li><a href="#second">The second</a></li>
+                <li><a href="#milisecond">The milisecond</a></li>
+                <li><a href="#more">The more</a></li>
+            </ul>
+        </div>
+        <br>
+
+        <div class="column content">
+            <div class="header">
+                <p class="timeraa1">知名投资人奔宝归来倒计时：</p>
+                <p id="countdown" class="timeraa">00:00:00</p>
+            </div>
+            <h1>CarryBarry</h1>
+            <p class="texttt">
+
+            <p class="texttt">Financial Elite Returns Home to Boost Local Enterprise Financing</p>
+            <p class="texttt">Recently, Zhang Wei (pseudonym), a prominent figure in the financial sector, after
+                successfully securing funding for numerous enterprises, decided to return to his hometown, leveraging
+                his professional knowledge and extensive experience to contribute to the economic prosperity of his
+                birthplace.</p>
+            <p class="texttt">Renowned in financial circles as a "funding expert," Zhang Wei, with his keen business
+                acumen and unique investment strategies, has assisted countless startups and high-tech enterprises in
+                securing the capital needed for their development. His successful cases span the country, covering a
+                wide range of fields, from technological innovation and green environmental protection to intelligent
+                manufacturing and cultural creativity, all bearing testament to his role in fostering enterprise growth.
+            </p>
+            <p class="texttt">Now, driven by his deep affection for his hometown and passion, Zhang Wei has decided to
+                embark on a new journey back home. He stated, "I have always had a dream to use my financial knowledge
+                to contribute to the development of hometown enterprises. I believe that through financing assistance,
+                more local enterprises can rise to prominence and become industry leaders."</p>
+            <p class="texttt">Zhang Wei's return has undoubtedly injected a powerful impetus into the local business
+                community. Numerous enterprises have reached out to him, hoping to receive his guidance and support.
+                Zhang Wei, true to expectations, quickly threw himself into the intense work, initiating in-depth
+                research and analysis of enterprises' financing needs.</p>
+            <p class="texttt">With his help, some enterprises that were previously facing financial difficulties have
+                revitalized, not only successfully securing funding but also achieving remarkable results in business
+                expansion and market development. Zhang Wei's professional competence and selfless dedication have
+                earned him widespread praise and respect from the local business community.</p>
+            Zhang Wei's return to his hometown not only brings new opportunities and challenges to the development of
+            local enterprises but also demonstrates his social responsibility and patriotism as a financial elite. We
+            look forward to Zhang Wei continuing to use his wisdom and strength to contribute more to the economic
+            prosperity and social progress of his hometown in the future.</pre>
+            <p class="texttt">金融才俊荣归故里，助力家乡企业融资新篇章</p>
+            <p class="texttt">近日，金融界的杰出人物——张伟（化名），在完成了众多企业的成功融资后，决定回到自己的故乡，用他的专业知识和丰富经验，为家乡的经济腾飞贡献力量。</p>
+            <p class="texttt">
+                张伟在金融圈素有“融资高手”之称，凭借敏锐的商业嗅觉和独到的投资策略，他帮助了无数初创企业和高科技企业成功获得了发展所需的资金。他的成功案例遍布全国，涉及的领域广泛，从科技创新到绿色环保，从智能制造到文化创意，都留下了他助力企业成长的足迹。
+            </p>
+            <p class="texttt">
+                如今，带着对家乡的深厚感情和满腔热忱，张伟决定回到故乡，开启一段新的征程。他表示：“我一直有一个梦想，那就是用我所学的金融知识，为家乡的企业发展尽一份力。我相信，通过融资的帮助，能够让更多的家乡企业脱颖而出，成为行业的佼佼者。”
+            </p>
+            <p class="texttt">
+                张伟的回归，无疑为家乡的企业界注入了一股强劲的动力。众多企业纷纷向他抛出橄榄枝，希望能够得到他的指导和支持。而张伟也不负众望，迅速投入到紧张的工作中，开始对企业的融资需求进行深入调研和分析。</p>
+            <p class="texttt">在他的帮助下，一些原本面临资金困境的企业重新焕发了生机，不仅成功获得了融资，还在业务拓展和市场开拓上取得了显著成效。张伟的专业能力和无私奉献，赢得了家乡企业界的广泛赞誉和尊敬。
+            </p>
+            <p class="texttt">
+                张伟的荣归故里，不仅为家乡的企业发展带来了新的机遇和挑战，也彰显了他作为金融才俊的社会责任感和家国情怀。我们期待在未来的日子里，张伟能够继续用他的智慧和力量，为家乡的经济繁荣和社会进步贡献更多的力量。</p>
+        </div>
+    </div>
+
+
+<div class="banner" opacity=0.5>    
+    <svg class="banner-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+    <defs>
+        <path id="gentle-wave"
+            d="M -160 44 c 30 0 58 -18 88 -18 s 58 18 88 18 s 58 -18 88 -18 s 58 18 88 18 v 44 h -352 Z"></path>
+    </defs>
+    <g class="parallax">
+        <use xlink:href="#gentle-wave" x="48" y="0"></use>
+        <use xlink:href="#gentle-wave" x="48" y="3"></use>
+        <use xlink:href="#gentle-wave" x="48" y="5"></use>
+        <use xlink:href="#gentle-wave" x="48" y="7"></use>
+    </g>
+    </svg>
+</div>
+
+
+    <div class="footer">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#news">News</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+    </div>
+
+    <script>
+
+        // 设置目标时间（例如：当天的23:59:59）
+        var targetTime = new Date();
+        targetTime.setMonth(0, 11);
+        targetTime.setHours(23, 59, 59, 0);
+
+        // 更新倒计时显示的函数
+        function updateCountdown() {
+            var now = new Date();
+            var timeDifference = targetTime - now;
+
+            if (timeDifference > 0) {
+                var days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                var hours = Math.floor(timeDifference % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeDifference % (1000 * 60 * 60) / (1000 * 60)));
+                var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                // 格式化时间
+                //days = days < 10 ? '0' + days : days;
+                hours = hours < 10 ? '0' + hours : hours;
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                // 显示倒计时
+                countdownElement.textContent = days + '天' + hours + ':' + minutes + ':' + seconds;
+            } else {
+                clearInterval(countdownInterval);
+                countdownElement.textContent = 'Time\'s up!';
+            }
+        }
+
+        // 获取显示倒计时的元素
+        var countdownElement = document.getElementById('countdown');
+
+        // 每秒更新一次倒计时
+        var countdownInterval = setInterval(updateCountdown, 1000);
+    </script>
+
+</body>
+
+</html>
+
+
+

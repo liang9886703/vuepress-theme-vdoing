@@ -37,31 +37,25 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>(
         link: '/'
       },
       {
-        text: 'quicker',
+        text: 'cs',
         link: '/01/',
         items: [
             {
-              text: 'vim.md',
-              link: '/01/01/'
-            }
-        ]
-      },
-      {
-        text: '分布式',
-        link: '/02/',
-        items: [
-            {
-              text: '一致性算法.md',
-              link: '/02/01/'
+              text: 'GPU并行编程',
+              link: '/01/01/01/'
             },
             {
-              text: '分布式ID生成.md',
-              link: '/02/02/'
+              text: '图形学',
+              link: '/01/03/01/'
             },
             {
-              text: '分布式架构.md',
-              link: '/02/03/'
-            }
+              text: '归并算法',
+              link: '/01/05/'
+            },
+            {
+              text: '计算机视觉',
+              link: '/01/06/01/'
+            },
         ]
       },
       {
@@ -69,152 +63,202 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>(
         link: '/03/',
         items: [
             {
-              text: 'css.md',
+              text: 'css',
               link: '/03/01/'
             },
             {
-              text: 'html.md',
+              text: 'html',
               link: '/03/02/'
             },
             {
-              text: 'JavaScript.md',
+              text: 'JavaScript',
               link: '/03/03/'
             },
             {
-              text: 'vue.md',
+              text: 'vue',
               link: '/03/04/'
             }
         ]
       },
       {
-        text: '操作系统',
-        link: '/04/',
-        items: [
-            {
-              text: '内存管理.md',
-              link: '/04/01/'
-            },
-            {
-              text: '文件系统.md',
-              link: '/04/02/'
-            },
-            {
-              text: '硬件结构.md',
-              link: '/04/03/'
-            },
-            {
-              text: '网络系统.md',
-              link: '/04/04/'
-            },
-            {
-              text: '设备管理.md',
-              link: '/04/05/'
-            },
-            {
-              text: '调试技术.md',
-              link: '/04/06/'
-            },
-            {
-              text: '进程管理.md',
-              link: '/04/07/'
-            }
-        ]
-      },
-      {
-        text: '数据库',
+        text: '工具和开发',
         link: '/05/',
         items: [
             {
-              text: 'redis原理.md',
+              text: '压缩命令',
               link: '/05/01/'
             },
             {
-              text: '数据库.md',
+              text: 'cmdline',
               link: '/05/02/'
-            }
+            },
+            {
+              text: 'Docker',
+              link: '/05/03/'
+            },
+            {
+              text: 'ftrace跟踪技术',
+              link: '/05/04/'
+            },
+            {
+              text: 'gcov代码覆盖率测试',
+              link: '/05/05/'
+            },
+            {
+              text: 'GDB',
+              link: '/05/06/'
+            },
+            {
+              text: 'git',
+              link: '/05/07/'
+            },
+            {
+              text: 'kgdb',
+              link: '/05/08/'
+            },
+            {
+              text: 'linux操作',
+              link: '/05/09/'
+            },
+            {
+              text: 'markdown',
+              link: '/05/10/'
+            },
+            {
+              text: 'systemtap',
+              link: '/05/11/'
+            },
+            {
+              text: 'valgrind',
+              link: '/05/12/'
+            },
+            {
+              text: '设计模式',
+              link: '/05/13/01/'
+            },
         ]
       },
       {
-        text: '服务器开发',
-        link: '/06/',
-        items: [
-            {
-              text: 'nginx.md',
-              link: '/06/01/'
-            },
-            {
-              text: 'nginx环境+编译+调试.md',
-              link: '/06/02/'
-            },
-            {
-              text: '高性能linux服务器.md',
-              link: '/06/03/'
-            }
-        ]
-      },
-      {
-        text: '网络编程',
+        text: '系统',
         link: '/07/',
         items: [
             {
-              text: 'IP',
+              text: '分布式',
               link: '/07/01/01/'
             },
             {
-              text: '网络工具.md',
-              link: '/07/02/'
+              text: '操作系统',
+              link: '/07/03/01/'
             },
             {
-              text: '网络编程.md',
-              link: '/07/03/'
+              text: '数据库',
+              link: '/07/05/01/事务/'
+            },
+            {
+              text: '服务器',
+              link: '/07/07/01/'
+            },
+            {
+              text: '网络',
+              link: '/07/09/01/'
+            },
+        ]
+      },
+      {
+        text: '语言',
+        link: '/09/',
+        items: [
+            {
+              text: 'C++',
+              link: '/09/01/01/'
+            },
+            {
+              text: 'c语言',
+              link: '/09/03/'
+            },
+            {
+              text: 'go',
+              link: '/09/04/01/'
+            },
+            {
+              text: 'JSON',
+              link: '/09/06/'
+            },
+            {
+              text: 'Makefile',
+              link: '/09/07/'
+            },
+            {
+              text: 'matlab',
+              link: '/09/08/01/'
+            },
+            {
+              text: 'OpenGL',
+              link: '/09/10/'
+            },
+            {
+              text: 'python',
+              link: '/09/11/01/'
+            },
+            {
+              text: 'shell',
+              link: '/09/13/'
+            },
+            {
+              text: '正则表达式',
+              link: '/09/14/'
+            },
+            {
+              text: '汇编',
+              link: '/09/15/'
             }
         ]
       },
       {
         text: '面试',
-        link: '/08/',
+        link: '/11/',
         items: [
             {
-              text: 'GPU并行编程.md',
-              link: '/08/01/'
+              text: 'GPU并行编程',
+              link: '/11/01/'
             },
             {
-              text: 'mysql.md',
-              link: '/08/02/'
+              text: 'mysql',
+              link: '/11/02/'
             },
             {
-              text: 'nginx.md',
-              link: '/08/03/'
+              text: 'nginx',
+              link: '/11/03/'
             },
             {
-              text: 'redis.md',
-              link: '/08/04/'
+              text: 'redis',
+              link: '/11/04/'
             },
             {
-              text: '网络.md',
-              link: '/08/05/'
+              text: '网络',
+              link: '/11/05/'
             },
             {
-              text: '计算机视觉.md',
-              link: '/08/06/'
+              text: '计算机视觉',
+              link: '/11/06/'
             },
             {
-              text: '进程管理.md',
-              link: '/08/07/'
+              text: '进程管理',
+              link: '/11/07/'
             }
         ]
       },
       {
         text: '项目bug',
-        link: '/09/',
+        link: '/13/',
         items: [
             {
-              text: 'linux调试.md',
-              link: '/09/01/'
+              text: 'linux调试',
+              link: '/13/01/'
             },
             {
-              text: '【Python】：re.error bad escape i at position 4.md',
-              link: '/09/02/'
+              text: '【Python】：re.error bad escape i at position 4',
+              link: '/13/02/'
             }
         ]
       },
@@ -238,13 +282,13 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>(
       }
     ],
     sidebarDepth: 2, // 侧边栏显示深度，默认1，最大2（显示到h3标题）
-    logo: '/img/logo.png', // 导航栏logo
+    logo: '/chu/amazingChu.png', // 导航栏logo
     repo: 'liang9886703', // 导航栏右侧生成Github链接
     searchMaxSuggestions: 10, // 搜索结果显示最大数
     lastUpdated: '上次更新', // 开启更新时间，并配置前缀文字   string | boolean (取值为git提交时间)
     docsDir: 'docs', // 编辑的文件夹
     // docsBranch: 'master', // 编辑的文件所在分支，默认master。 注意：如果你的分支是main则修改为main
-    editLinks: true, // 启用编辑
+    editLinks: false, // 启用编辑
     editLinkText: '编辑',
 
     //*** 以下是Vdoing主题相关配置，文档：https://doc.xugaoyi.com/pages/a20ce8/ ***//
@@ -291,7 +335,7 @@ export default defineConfig4CustomTheme<VdoingThemeConfig>(
 
     // 博主信息 (显示在首页侧边栏)
     blogger: {
-      avatar: 'https://jsd.cdn.zzko.cn/gh/xugaoyi/image_store/blog/20200103123203.jpg',
+      avatar: '/chu/amazingChu.png',
       name: '松垮垮',
       slogan: 'c++后端开发工程师',
     },

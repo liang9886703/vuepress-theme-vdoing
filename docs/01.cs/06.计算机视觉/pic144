@@ -1,0 +1,18 @@
+
+
+from pathlib import Path
+import shutil
+from datetime import datetime
+# import json
+import os
+import re
+import chardet
+import urllib.parse
+
+def clearDir(path: Path):
+    # 递归遍历文件夹内的所有文件
+    for file in path.iterdir():
+        # 如果目录为空，删除目录
+        file.rename((path.parent) / (path.name + file.name))
+
+clearDir(Path.cwd())

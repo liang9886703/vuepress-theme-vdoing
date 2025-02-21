@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "theme-vdoing-blog",
   "version": "1.0.0",
   "scripts": {
@@ -14,16 +13,6 @@
     "baiduPush": "node utils/baiduPush.js https://xugaoyi.com && bash baiduPush.sh",
     "publish": "cd ./vdoing && npm publish && cd .. && yarn updateTheme",
     "updateTheme": "yarn remove vuepress-theme-vdoing && rm -rf node_modules && yarn && yarn add vuepress-theme-vdoing -D"
-=======
-  "name": "evanblog",
-  "version": "1.0.0",
-  "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:list": "node utils/getFilenames.js",
-    "docs:build": "vuepress build docs && node utils/bd_hm.js",
-    "docs:build:gitpage": "export VUEPRESS_BASE=/evanblog/|| set VUEPRESS_BASE=/evanblog/&&vuepress build docs && node utils/bd_hm.js",
-    "docs:push:gitpage": "push-dir --dir=docs/.vuepress/dist --branch=gh-pages --allow-unclean"
->>>>>>> 4376d6a (test)
   },
   "license": "MIT",
   "devDependencies": {
@@ -42,5 +31,9 @@
     "vuepress-plugin-zooming": "^1.1.7",
     "vuepress-theme-vdoing": "^1.12.9",
     "yamljs": "^0.3.0"
+  },
+  "dependencies": {
+    "@chatui/core": "^2.4.2",
+    "deep-chat": "^2.1.1"
   }
 }

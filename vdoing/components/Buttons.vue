@@ -1,52 +1,69 @@
 <template>
   <div class="buttons">
-    <transition name="fade">
-      <div
-        title="返回顶部"
-        class="button blur go-to-top iconfont icon-fanhuidingbu"
-        v-show="showToTop"
-        @click="scrollToTop"
-      />
-    </transition>
-    <div
-      title="去评论"
-      class="button blur go-to-comment iconfont icon-pinglun"
-      v-show="showCommentBut"
-      @click="scrollToComment"
-    />
-    <div
-      title="主题模式"
-      class="button blur theme-mode-but iconfont icon-zhuti"
-      @mouseenter="showModeBox = true"
-      @mouseleave="showModeBox = false"
-      @click="showModeBox = true"
-    >
-      <transition name="mode">
-        <ul
-          class="select-box"
-          ref="modeBox"
-          v-show="showModeBox"
-          @click.stop
-          @touchstart.stop
+    <div class="buttonRec">
+      <transition name="fade">
+        <div
+          title="返回顶部"
+          class="button blur go-to-top iconfont icon-fanhuidingbu"
+          v-show="showToTop"
+          @click="scrollToTop"
+        />
+        </transition>
+        <div
+          title="去评论"
+          class="button blur iconfont icon-pinglun"
+          v-show="showCommentBut"
+          @click="scrollToComment"
+        />
+        <div
+          title="AI聊天"
+            class="button blur iconfont icon-robot"
+          v-show="true"
+          @click="openAIChat"
+        />
+        <div
+          title="主题模式"
+          class="button blur theme-mode-but iconfont icon-zhuti"
+          @mouseenter="showModeBox = true"
+          @mouseleave="showModeBox = false"
+          @click="showModeBox = true"
         >
-          <li
-            v-for="item in modeList"
-            :key="item.KEY"
-            class="iconfont"
-            :class="[item.icon, { active: item.KEY === currentMode }]"
-            @click="toggleMode(item.KEY)"
-          >
-            {{ item.name }}
-          </li>
-        </ul>
-      </transition>
+          <transition name="mode">
+            <ul
+              class="select-box"
+              ref="modeBox"
+              v-show="showModeBox"
+              @click.stop
+              @touchstart.stop
+            >
+              <li
+                v-for="item in modeList"
+                :key="item.KEY"
+                class="iconfont"
+                :class="[item.icon, { active: item.KEY === currentMode }]"
+                @click="toggleMode(item.KEY)"
+              >
+                {{ item.name }}
+              </li>
+            </ul>
+          </transition>
+        </div>
     </div>
+    <transition name="fade">
+      <div class="allchat" v-show="showAIChat">
+        <div class="help"></div>
+        <chatAI  class="chatAI" />
+        <img src="/chu/minichu.png" class="pic"></img>
+      </div>
+    </transition>
   </div>
+
 </template>
 
 <script>
 import debounce from 'lodash.debounce'
 import storage from 'good-storage' // 本地存储
+import chatAI from './chatAI.vue' 
 const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
 
 export default {
@@ -55,6 +72,7 @@ export default {
       threshold: 100,
       scrollTop: null,
       showCommentBut: false,
+      showAIChat: false,
       commentTop: null,
       currentMode: '',
       showModeBox: false,
@@ -88,6 +106,7 @@ export default {
       COMMENT_SELECTOR_3: '.vssue' // 评论区元素的选择器3
     }
   },
+  components: { chatAI },
   mounted () {
     this.currentMode = storage.get('mode') ||  this.$themeConfig.defaultMode ||'auto'
     this.scrollTop = this.getScrollTop()
@@ -159,7 +178,9 @@ export default {
       }, 500)
     },
 
-
+    openAIChat() {
+      this.showAIChat = !this.showAIChat
+    },
     scrollToComment () {
       window.scrollTo({ top: this.commentTop, behavior: 'smooth' })
       this._textareaEl = document.querySelector(this.COMMENT_SELECTOR_1 + ' textarea') || document.querySelector(this.COMMENT_SELECTOR_2 + ' input') || document.querySelector(this.COMMENT_SELECTOR_3 + ' textarea')
@@ -197,60 +218,100 @@ export default {
 </script>
 
 <style lang='stylus'>
+.icon-robot::before
+  content: '\e622'
 .yellowBorder
   // border: #FFE089 1px solid!important
   border-radius 5px
   box-shadow 0 0 15px #FFE089 !important
 .buttons
+  pointer-events none
+  right 0
+  bottom 0
+  width 700px
+  height 100%
   position fixed
-  right 2rem
-  bottom 2.5rem
   z-index 11
-  @media (max-width $MQNarrow)
+  .allchat
+    width 700px
+    height 1000px
+    pointer-events none
+    .help
+      position fixed
+      height 300px
+      width 1000px
+    .pic
+      z-index 1000
+      height 400px
+      width 230px
+      right 56px
+      overflow display
+      position fixed
+      transition 0.5s
+      pointer-events none
+    .chatAI
+      pointer-events auto
+      bottom 65px
+      overflow display
+      right 10px
+      top 300px
+      transition 0.5s
+      position fixed
+      z-index 1000
+      @media (max-width 1500px)
+        overflow visible
+      @media (max-width 1050px)
+        overflow visible
+.buttonRec
+    pointer-events auto
+    position absolute
     right 1rem
     bottom 1.5rem
-  .button
-    width 2.2rem
-    height 2.2rem
-    line-height 2.2rem
-    border-radius 50%
-    box-shadow 0 2px 6px rgba(0, 0, 0, 0.15)
-    margin-top 0.9rem
-    text-align center
-    cursor pointer
-    transition all 0.5s
-    background var(--buttonsColor)
-    &.hover
-      background $accentColor
-      box-shadow 0 0 15px $accentColor
-      &:before
-        color #fff
-    @media (any-hover hover)
-      &:hover
+    .button
+      width 2.2rem
+      height 2.2rem
+      line-height 2.2rem
+      border-radius 50%
+      box-shadow 0 2px 6px rgba(0, 0, 0, 0.15)
+      margin-top 0.9rem
+      text-align center
+      cursor pointer
+      transition all 0.5s
+      background var(--buttonsColor)
+      @media (max-width $MQNarrow)
+        right 1rem
+        bottom 1.5rem
+      &.hover
         background $accentColor
         box-shadow 0 0 15px $accentColor
         &:before
           color #fff
-    .select-box
-      margin 0
-      padding 0.8rem 0
-      position absolute
-      bottom 0rem
-      right 1.5rem
-      background var(--mainBg)
-      border 1px solid var(--borderColor)
-      width 120px
-      border-radius 6px
-      box-shadow 0 0 15px rgba(255, 255, 255, 0.2)
-      li
-        list-style none
-        line-height 2rem
-        font-size 0.95rem
+      @media (any-hover hover)
         &:hover
-          color $accentColor
-        &.active
-          background-color rgba(150, 150, 150, 0.2)
-          color $accentColor
+          background $accentColor
+          box-shadow 0 0 15px $accentColor
+          &:before
+            color #fff
+      .select-box
+        margin 0
+        padding 0.8rem 0
+        position absolute
+        bottom 0rem
+        right 1.5rem
+        background var(--mainBg)
+        border 1px solid var(--borderColor)
+        width 120px
+        border-radius 6px
+        box-shadow 0 0 15px rgba(255, 255, 255, 0.2)
+        li
+          list-style none
+          line-height 2rem
+          font-size 0.95rem
+          &:hover
+            color $accentColor
+          &.active
+            background-color rgba(150, 150, 150, 0.2)
+            color $accentColor
 .mode-enter-active, .mode-leave-active
   transition all 0.3s
 .mode-enter, .mode-leave-to

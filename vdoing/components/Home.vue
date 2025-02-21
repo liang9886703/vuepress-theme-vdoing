@@ -195,10 +195,10 @@ import CategoriesBar from '@theme/components/CategoriesBar'
 import TagsBar from '@theme/components/TagsBar'
 import chara from '@theme/components/chara'
 import homeBackgroud from '@theme/components/HomeBackgroud'
-
 const MOBILE_DESKTOP_BREAKPOINT = 720 // refer to config.styl
 
 BScroll.use(Slide)
+
 
 export default {
   data() {
@@ -375,9 +375,6 @@ export default {
 <style lang="stylus" scoped>
 
 .home-wrapper
-
-
-
   .head
     display: flex; /* 使用 Flexbox 布局 */
     flex-direction: row

@@ -2,7 +2,7 @@
 Author: liang9886703 liang9886703@outlook,com
 Date: 2025-02-07 15:54:36
 LastEditors: liang9886703 liang9886703@outlook,com
-LastEditTime: 2025-02-13 23:10:47
+LastEditTime: 2025-02-15 16:58:35
 FilePath: \vuepress-theme-vdoing\build_directories.py
 Description: 
 
@@ -184,7 +184,9 @@ def orderMd(path:Path, name:str, num:int, pre_name:str):
             first_line = file.readline()
             while first_line and not first_line.startswith('---'):
                 first_line = file.readline()
-            all = file.read()
+            first_line = ''
+        
+        all = first_line + file.read()
 
         file.seek(0)
         file.write(string)
@@ -219,15 +221,13 @@ def orderDir(path: Path, level: int, relative_dir: str, pre_name:str=''):
             
             unordered_name = deleteOrder(item.name)
             new_name = ''
-
-
             
             if level == 0:
-                new_name = builder.build_directories(unordered_name)
+                new_name = builder.build_directories(unordered_name,num)
             else:
                 new_name = builder.build_directories(unordered_name, num)
-                num += 1
                 
+            num += 1
             new_path = path / new_name
             if new_name:
                 (path / item.name).rename(new_path)
@@ -235,7 +235,7 @@ def orderDir(path: Path, level: int, relative_dir: str, pre_name:str=''):
                 print(f"Failed to rename {item.name}")
             it = orderDir(new_path, level+1, relative_dir+r'/'+unordered_name, pre_name + '/' + getOrder(new_name))
             
-            firstMd = findFirstMd(path / item.name,  pre_name + '/' + getOrder(new_name))
+            firstMd = findFirstMd(new_path,  pre_name + '/' + getOrder(new_name))
             if level == 1 and firstMd:
                 res.append(firstMd)
             if level <= 1 and it:
