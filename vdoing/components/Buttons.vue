@@ -52,7 +52,10 @@
     <transition name="fade">
       <div class="allchat" v-show="showAIChat">
         <div class="help"></div>
-        <chatAI  class="chatAI" />
+
+        <div id="chatAI" class="deepchat"></div>
+        <script src="/chatAI.js" type="module"></script>
+
         <img src="/chu/minichu.png" class="pic"></img>
       </div>
     </transition>
@@ -63,7 +66,6 @@
 <script>
 import debounce from 'lodash.debounce'
 import storage from 'good-storage' // 本地存储
-import chatAI from './chatAI.vue' 
 const MOBILE_DESKTOP_BREAKPOINT = 719 // refer to config.styl
 
 export default {
@@ -106,7 +108,6 @@ export default {
       COMMENT_SELECTOR_3: '.vssue' // 评论区元素的选择器3
     }
   },
-  components: { chatAI },
   mounted () {
     this.currentMode = storage.get('mode') ||  this.$themeConfig.defaultMode ||'auto'
     this.scrollTop = this.getScrollTop()
@@ -218,6 +219,12 @@ export default {
 </script>
 
 <style lang='stylus'>
+.deepChat 
+  background rgba(255, 255, 255, 0.2)
+  backdrop-filter blur(4px)
+  -webkit-backdrop-filter blur(10px)
+  box-shadow 0 4px 8px rgba(0, 0, 0, 0.4)
+  border-radius 12px
 .icon-robot::before
   content: '\e622'
 .yellowBorder
@@ -241,19 +248,20 @@ export default {
       height 300px
       width 1000px
     .pic
+      pointer-events painted
       z-index 1000
       height 400px
       width 230px
       right 56px
+      top 730px
       overflow display
       position fixed
       transition 0.5s
       pointer-events none
-    .chatAI
+    .deepchat
       pointer-events auto
       bottom 65px
       overflow display
-      right 10px
       top 300px
       transition 0.5s
       position fixed
