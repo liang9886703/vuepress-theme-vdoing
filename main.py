@@ -1,13 +1,3 @@
-'''
-Author: liang9886703 liang9886703@outlook,com
-Date: 2025-02-18 20:23:50
-LastEditors: liang9886703 liang9886703@outlook,com
-LastEditTime: 2025-02-21 01:58:44
-FilePath: \vuepress-theme-vdoing\main.py
-Description: 
-
-Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
-'''
 from flask import Flask, request, Response, stream_with_context, jsonify
 import requests
 import json
@@ -15,10 +5,13 @@ import sseclient
 from flask_cors import CORS
 import time
 import copy
+from gevent import pywsgi
+
+APP_SERVER_KEY = ""
+
 
 app = Flask(__name__)
 CORS(app)
-
 url = 'https://wss.lke.cloud.tencent.com/v1/qbot/chat/sse'
 headers = {"Accept": "text/event-stream"}
 
@@ -31,7 +24,13 @@ response_headers ={
     }
 
 class Custom:
-    
+    sdata = {
+        "content":"",
+        "bot_app_key": APP_SERVER_KEY,
+        "visitor_biz_id": 'test',
+        "session_id": "test",
+        "streaming_throttle": 5
+    }
     def chat(self, body):
         # Text messages are stored inside request body using the Deep Chat JSON format:
         # https://deepchat.dev/docs/connect
@@ -39,16 +38,12 @@ class Custom:
         # Sends response back to Deep Chat using the Response format:
         # https://deepchat.dev/docs/connect/#Response
         return {"text": "This is a respone from a Flask server. Thankyou for your message!",'error': "error", 'overwrite':'true'}
-
+    # 同时和前端和云服务端交互，流式
     def rec_and_send_stream(self, message):
-        send_data = {
-            "content": message,
-            "bot_app_key": "RhCFVzuO",
-            "visitor_biz_id": 'test',
-            "session_id": "test",
-            "streaming_throttle": 5
-        }
+        
         try:
+            send_data = self.sdata
+            send_data['content'] = message
             resp = requests.post(url, json=send_data, stream=True, headers=headers)
             client = sseclient.SSEClient(resp) 
             locData = 0
@@ -60,36 +55,21 @@ class Custom:
                     if data["payload"]["is_from_self"]:  # 自己发出的包
                         # print(f'is_from_self, event:{ev.event}, "content:"{data["payload"]["content"]}')
                         # reply = json.dumps({'reply':data["payload"]["content"]})
-                        
-                        # for i in range(locData, len(reply)):
-                        #     time.sleep(0.07)
-                        #     print(reply[i])
-                        #     yield f"data: {json.dumps({'text': f'{reply[i]} '})}\n\n"
-                        # locData = len(reply)
                         continue
-                    elif data["payload"]["is_final"]:  # 服务端event传输完毕；服务端的回复是流式的，最后一条回复的content，包含完整内容
-                        # print(f'is_final, event:{ev.event}, "content:"{rec_message}')
-                        while locData < len(rec_message):
-                            time.sleep(0.07)
-                            print(f'locData：{locData}len:{len(rec_message)}data:{rec_message[locData]}')
-                            reply = rec_message[locData]
-                            yield f"data: {json.dumps({'text': f'{reply}'})}\n\n"
-                            print(rec_message[locData])
-                            locData += 1
-                    else:
-                        while locData < len(rec_message):
-                            time.sleep(0.07)
-                            print(f'locData：{locData}len:{len(rec_message)}data:{rec_message[locData]}')
-                            reply = rec_message[locData]
-                            yield f"data: {json.dumps({'text': f'{reply}'})}\n\n"
-                            print(rec_message[locData])
-                            locData += 1
+                    while locData < len(rec_message):
+                        time.sleep(0.07)
+                        print(f'locData：{locData}len:{len(rec_message)}data:{rec_message[locData]}')
+                        reply = rec_message[locData]
+                        yield f"data: {json.dumps({'text': f'{reply}'})}\n\n"
+                        print(rec_message[locData])
+                        locData += 1
+                    if data["payload"]["is_final"]:  # 服务端event传输完毕；服务端的回复是流式的，最后一条回复的content，包含完整内容
+                        print(f'is_final, event:{ev.event}, "content:"{rec_message}')
+                        # todo ：日志记录
                     # print(f'locData：{locData}, rec_message({len(rec_message)}):{rec_message}')
                 elif ev.event == 'thought':
                         print(f'"thought:"{data['payload']['procedures']}')
                         rec_message = ""
-                        # for pro in data['payload']['procedures']:
-                        #     reply += pro["debugging"]['content']
                         # print("------------")
                         # # print(reply)
                         # print("------------")
@@ -106,33 +86,24 @@ class Custom:
         except Exception as e:
             print(f"\033[1;31merror:{str(e)}\033[0m\n")
             yield f"data: {json.dumps({'text': f'Error in stream: {str(e)}'})}\n\n"
-
+    # 同时和前端和云服务端交互，非流式
     def rec_and_send(self, message):
-        send_data = {
-            "content": message,
-            "bot_app_key": "RhCFVzuO",
-            "visitor_biz_id": 'test',
-            "session_id": "test",
-            "streaming_throttle": 5
-        }
+        send_data = self.sdata
+        send_data['content'] = message
         try:
+            print('start request')
             resp = requests.post(url, json=send_data, stream=True, headers=headers)
+            print('end request')
             client = sseclient.SSEClient(resp) 
+            print('client start')
             locData = 0
             for ev in client.events():
-                # print(f'event:{ev.event}, "data:"{ev.data}')
+                print(f'event:{ev.event}, "data:"{ev.data}')
                 data = json.loads(ev.data)
                 if ev.event == "reply":
+                    print('reply')
                     rec_message = data["payload"]["content"]
                     if data["payload"]["is_from_self"]:  # 自己发出的包
-                        # print(f'is_from_self, event:{ev.event}, "content:"{data["payload"]["content"]}')
-                        # reply = json.dumps({'reply':data["payload"]["content"]})
-                        
-                        # for i in range(locData, len(reply)):
-                        #     time.sleep(0.07)
-                        #     print(reply[i])
-                        #     yield f"data: {json.dumps({'text': f'{reply[i]} '})}\n\n"
-                        # locData = len(reply)
                         continue
                     elif data["payload"]["is_final"]:  # 服务端event传输完毕；服务端的回复是流式的，最后一条回复的content，包含完整内容
                         # print(f'is_final, event:{ev.event}, "content:"{rec_message}')
@@ -155,6 +126,7 @@ class Custom:
                         # yield reply
                 elif ev.event == 'error':
                     rec_message = f'event:{ev.event}, data:{ev.data}'
+                    print(f'error:{rec_message}')
                     yield f"data: {json.dumps({'text': f'{rec_message} ','overwrite':'true'})}\n\n"
                 elif ev.event == 'token_stat':
                     print(f"event:{ev.event}, data:{ev.data}\n\n")
@@ -165,7 +137,7 @@ class Custom:
             print(f"\033[1;31merror:{str(e)}\033[0m\n")
             yield f"data: {json.dumps({'text': f'Error in stream: {str(e)}'})}\n\n"
 
-
+    # 用于测试和前端的交互
     def chat_stream2(self, body):
         # Text messages are stored inside request body using the Deep Chat JSON format:
         # https://deepchat.dev/docs/connect
@@ -187,7 +159,7 @@ class Custom:
             yield from self.send_stream2(response_chunks, chunk_index + 1)
         else:
             yield ""
-            
+    # 用于测试和前端的中文流式交互
     def send_stream3(self, response_chunks, chunk_index=0):
         text = 'hello'
         yield f"data: {json.dumps({'text': f'{text} ','overwrite':'true'})}\n\n"
@@ -226,7 +198,7 @@ class Custom:
         # json_data = json.dumps(f'text: {response_chunks}', ensure_ascii=False)
         # yield f"data: {json_data}\n\n"
         # yield f"data: {json.dumps({'text': f'{response_chunks}'},ensure_ascii=False)}\n\n"
-
+    # 文件传输
     def files(self, request):
         # Files are stored inside a files object
         # https://deepchat.dev/docs/connect
@@ -255,62 +227,6 @@ class Custom:
 
 custom = Custom()
 
-def generate_stream(new_headers, new_body):
-    """
-    向目标地址建立流连接，并逐行读取返回数据，处理后yield给客户端
-    """
-    global data
-    
-    data['content'] = new_body['content']
-    
-    try:
-        resp = requests.post(url, json=data, headers=headers, stream=True)
-        client = sseclient.SSEClient(resp) 
-        for ev in client.events():
-            # print(f'event:{ev.event}, "data:"{ev.data}')
-            data = json.loads(ev.data)
-            if ev.event == "reply":
-                if data["payload"]["is_from_self"]:  # 自己发出的包
-                    print(f'is_from_self, event:{ev.event}, "content:"{data["payload"]["content"]}')
-                    reply = json.dumps(data["payload"]["content"])
-                    print("------------")
-                    print(reply)
-                    print("------------")
-                    yield reply
-                elif data["payload"]["is_final"]:  # 服务端event传输完毕；服务端的回复是流式的，最后一条回复的content，包含完整内容
-                    print(f'is_final, event:{ev.event}, "content:"{data["payload"]["content"]}')
-                    reply = json.dumps(data["payload"]["content"])
-                    print("------------")
-                    print(reply)
-                    print("------------")
-                    yield reply
-
-                    # yield data["payload"]["content"]
-            elif ev.event == 'thought':
-                    print(f'"thought:"{data['payload']['procedures']}')
-                    
-                    for pro in data['payload']['procedures']:
-                        reply += pro["debugging"]['content']
-                    print("------------")
-                    # print(reply)
-                    print("------------")
-                    reply = json.dumps({'thought':reply})
-                    yield reply
-            else:
-                print(f'event:{ev.event}, "data:"{ev.data}')
-
-    except Exception as e:
-        print(f"\033[1;31merror:{str(e)}\033[0m\n")
-        yield f"Error in stream: {str(e)}\n"
-        
-def generate_stream_test(new_headers, new_body):
-    print(f'new_body: {new_body}')
-    # yield json.dumps({'reply': '1'})
-    yield f"data: 244\n\n"
-    yield f"data: 344\n\n"
-    yield "data: end\n\n"  # 流结束时发送最后一条消息
-    return 
-
 @app.route('/', methods=['GET'])
 def root_get():
     return "Hello, World!"
@@ -334,4 +250,6 @@ def stream_route():
 
 if __name__ == '__main__':
     # 监听所有地址，方便外部访问；debug模式仅用于开发环境
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # app.run(host='0.0.0.0', port=5000, debug=False)
+    server = pywsgi.WSGIServer(('0.0.0.0', 5000), app)
+    server.serve_forever()

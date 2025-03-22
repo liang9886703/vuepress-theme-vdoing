@@ -74,7 +74,7 @@ export default {
       threshold: 100,
       scrollTop: null,
       showCommentBut: false,
-      showAIChat: false,
+      showAIChat: true,
       commentTop: null,
       currentMode: '',
       showModeBox: false,

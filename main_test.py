@@ -1,13 +1,4 @@
-'''
-Author: liang9886703 liang9886703@outlook,com
-Date: 2025-02-18 20:23:51
-LastEditors: liang9886703 liang9886703@outlook,com
-LastEditTime: 2025-02-20 23:10:33
-FilePath: \vuepress-theme-vdoing\main_test.py
-Description: 
 
-Copyright (c) 2025 by ${git_name_email}, All Rights Reserved. 
-'''
 import requests
 import sseclient
 import json
@@ -21,7 +12,9 @@ headers = {
 
 # 请求体，必须包含 data 字段
 payload = {
-    "content": "今天周几",
+    "messages": [
+        {'text':'今天周几'}
+        ]
 }
 
 try:

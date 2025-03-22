@@ -13,7 +13,7 @@ const chat = {
         div: {
           events: {
             click: () => {
-              chatElementRef.value.submitUserMessage("你好");
+              chatElementRef.value.submitUserMessage({text: "你好"});
             }
           },
           styles: {
@@ -38,7 +38,7 @@ const chat = {
       chatElementRef.value.displayLoadingBubble = false;
 
       chatElementRef.value.connect = {
-        url: "http://47.109.189.58:5000/stream",
+        url: "http://songkuakua.com/stream",
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         stream: true
